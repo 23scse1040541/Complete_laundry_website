@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laundry Services Web App</title>
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+<header id=" main">
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">
+      <img src="https://png.pngtree.com/png-vector/20230124/ourmid/pngtree-laundry-logo-illustration-png-image_6572065.png" height="50" alt="Laundry Logo">
+    </div>  
+    <div class="section">
+      <ul>
+        <li><a href="#home ">HOME</a></li>
+        <li><a href="#about-us">ABOUT US</a></li>
+        <li><a href="#book-now">SERVICES</a></li>
+        <li><a href="#contact-us">CONTACT US</a></li>
+      </ul>
+    </div>
+    <ul>
+    <div class="username">
+      <li><h4> <a href="">Log In</h4></a></li>
+      <li><h4> <a href="">Sign up</h4></a></li>
+    </div>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero" id="home">
+    <div class="left" id="head">
+      <h2>REVITALIZE YOUR CLOTHES WITH EXPERT <span>LAUNDRY SERVICE!</span></h2>
+      <p>"Laundry services save time and energy by providing clean, fresh, and neatly folded clothes with expert care."</p>
+      <a href="#book-now" class="btn">BOOK YOUR LAUNDRY TODAY!</a>
+    </div>
+    <div class="right">
+       <img src="https://img.freepik.com/free-vector/realistic-washing-machine-composition-with-isolated-view-laundry-flying-out-machine-door-basin-vector-illustration_1284-83894.jpg" alt="Laundry">
+    </div>
+
+  </div>
+</header>
+
+  <!-- Service Overview -->
+  <section class="overview">
+    <div>15+ Laundry Services</div>
+    <div>240+ Happy Customers</div>
+    <div>2+ Years of Experience</div>
+  </section>
+
+ <section class="booking-section" id="book-now">
+  <h2 class="booking-title">Book Your Laundry Service</h2>
+  <p class="booking-subtitle">Select your services and schedule your pickup easily 👕</p>
+
+  <div class="booking-container">
+    
+    <!-- LEFT: Service Cards -->
+    <div class="booking-left">
+      <div class="service-card-booking">
+        <img src="https://cdn-icons-png.flaticon.com/128/1051/1051009.png" alt="Washing">
+        <h3>Wash & Fold</h3>
+        <p>Quick and affordable wash & fold service for everyday clothes.</p>
+        <button class="add-btn" onclick="addToCart('Wash & Fold', 200)">Add ₹200</button>
+      </div>
+
+      <div class="service-card-booking">
+        <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" alt="Ironing">
+        <h3>Wash & Iron</h3>
+        <p>Freshly washed and crisp ironing for professional look.</p>
+        <button class="add-btn" onclick="addToCart('Wash & Iron', 250)">Add ₹250</button>
+      </div>
+
+      <div class="service-card-booking">
+        <img src="https://cdn-icons-png.flaticon.com/512/3211/3211356.png" alt="Dry Cleaning">
+        <h3>Dry Cleaning</h3>
+        <p>Gentle care for your premium fabrics with expert dry cleaning.</p>
+        <button class="add-btn" onclick="addToCart('Dry Cleaning', 350)">Add ₹350</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: Summary & Form -->
+    <div class="booking-right">
+      <h3>Your Booking Summary 🧺</h3>
+      <ul id="cartItems"></ul>
+      <p id="totalPrice"><strong>Total:</strong> ₹0</p>
+
+      <form id="bookingForm">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="tel" placeholder="Phone Number" required>
+        <input type="date" required>
+        <button type="submit" class="confirm-btn">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="why-us" id="about-us">
+  <h2>Why Choose Us?</h2>
+  <div class="why-container">
+    <div class="why-card">
+      <h3>On-Time Delivery</h3>
+      <p>We value your time. Every order is picked and delivered promptly.</p>
+    </div>
+    <div class="why-card">
+      <h3>Eco-Friendly Cleaning</h3>
+      <p>Our cleaning methods protect both your clothes and the planet.</p>
+    </div>
+    <div class="why-card">
+      <h3>Affordable Pricing</h3>
+      <p>Premium laundry service that doesn’t empty your wallet.</p>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter">
+  <h2>Stay Fresh, Stay Updated!</h2>
+  <p>Subscribe for discounts and laundry hacks.</p>
+  <input type="email" placeholder="Enter your email">
+  <button>Subscribe</button>
+</section>
+
+<!-- 🌟 Footer Section -->
+  <footer class="footer">
+    <div class="footer-glass">
+      <div class="footer-container">
+
+        <!-- Brand Logo -->
+        <h2 class="footer-logo">🧺 FreshFold Laundry</h2>
+        <p class="footer-tagline">
+          Clean Clothes. Happy Life. <br> We make your laundry day effortless and refreshing.
+        </p>
+
+        <!-- Navigation Links -->
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#faq">FAQs</a></li>
+          <li><a href="#terms">Terms of Service</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+
+        <!-- Social Icons -->
+        <div class="footer-socials"id=contact-us>
+          <a href="#"> Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">linkdin</a>
+        </div>
+
+        <!-- Copyright -->
+        <p class="footer-bottom">© 2025 FreshFold Laundry Services. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+<script src="scripts.js"></script>
+</body>
+</html>
