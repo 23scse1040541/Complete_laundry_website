@@ -225,17 +225,59 @@ function initApp() {
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      if (!window.emailjs) {
+        alert('EmailJS is not loaded. Please check the script include.');
+        return;
+      }
+
+      const nameInput = document.getElementById('newsletterName');
+      const emailInput = document.getElementById('newsletterEmail');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+
+      if (!name || !email) {
+        alert('Please enter your name and a valid email address.');
+        return;
+      }
+
       if (subscribeBtn) {
+        subscribeBtn.disabled = true;
+        subscribeBtn.textContent = 'Subscribing...';
         subscribeBtn.classList.add('scale-95');
         setTimeout(() => subscribeBtn.classList.remove('scale-95'), 150);
       }
-      if (newsletterMessage) {
-        newsletterMessage.classList.remove('hidden');
-        setTimeout(() => {
-          newsletterMessage.classList.add('hidden');
-        }, 3000);
-      }
-      newsletterForm.reset();
+
+      const templateParams = {
+        subscriber_name: name,
+        subscriber_email: email,
+      };
+
+      // Uses same EmailJS service as booking; replace template ID with your newsletter template
+      emailjs
+        .send('service_i86gxb4', 'template_8uzvdr6', templateParams)
+        .then(() => {
+          if (newsletterMessage) {
+            newsletterMessage.classList.remove('hidden');
+            setTimeout(() => {
+              newsletterMessage.classList.add('hidden');
+            }, 3000);
+          }
+          newsletterForm.reset();
+        })
+        .catch((error) => {
+          console.error('EmailJS Newsletter Error:', error);
+          alert(
+            'Unable to subscribe you to the newsletter right now. Please try again later.'
+          );
+        })
+        .finally(() => {
+          if (subscribeBtn) {
+            subscribeBtn.disabled = false;
+            subscribeBtn.textContent = 'Subscribe';
+          }
+        });
     });
   }
 }
