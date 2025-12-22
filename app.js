@@ -41,48 +41,65 @@ function initApp() {
 
   let cart = [];
 
+  let servicesListListenerAttached = false;
+
   function renderServices() {
     if (!servicesListEl) return;
     servicesListEl.innerHTML = '';
     services.forEach((service) => {
+      const cartItem = cart.find((c) => c.id === service.id);
+      const quantity = cartItem ? cartItem.qty : 0;
+      
       const item = document.createElement('div');
       item.className =
-        'flex items-center justify-between bg-slate-50 rounded-xl p-3 border border-slate-100';
+        'flex items-center justify-between bg-slate-50 rounded-xl p-3 border border-slate-100 hover:shadow-sm transition-shadow';
       item.innerHTML = `
-        <div>
+        <div class="flex-1">
           <p class="font-medium text-slate-900">${service.name}</p>
           <p class="text-xs text-slate-500">Price: ₹${service.price}</p>
+          ${quantity > 0 ? `<p class="text-xs font-medium text-primary mt-1">In cart: ${quantity}</p>` : ''}
         </div>
         <div class="flex items-center gap-2">
           <button
-            class="add-btn inline-flex items-center px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-semibold hover:bg-primaryLight transition-colors"
+            class="add-btn inline-flex items-center px-3 py-1.5 rounded-lg bg-green-500 text-white text-xs font-semibold hover:bg-green-600 transition-all transform hover:scale-105 active:scale-95 shadow-sm"
             data-id="${service.id}"
+            title="Add to cart"
           >
-            Add Item
+            <span class="mr-1">+</span> Add
           </button>
           <button
-            class="remove-btn inline-flex items-center px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 text-xs font-semibold hover:bg-slate-300 transition-colors"
+            class="remove-btn inline-flex items-center px-3 py-1.5 rounded-lg bg-red-500 text-white text-xs font-semibold hover:bg-red-600 transition-all transform hover:scale-105 active:scale-95 shadow-sm ${quantity === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
             data-id="${service.id}"
+            title="Remove from cart"
+            ${quantity === 0 ? 'disabled' : ''}
           >
-            Remove Now
+            <span class="mr-1">−</span> Remove
           </button>
         </div>
       `;
       servicesListEl.appendChild(item);
     });
+  }
 
+  if (servicesListEl && !servicesListListenerAttached) {
     servicesListEl.addEventListener('click', function (e) {
-      const target = e.target;
-      const idAttr = target.getAttribute('data-id');
+      const btn = e.target && e.target.closest ? e.target.closest('button') : null;
+      if (!btn || !servicesListEl.contains(btn)) return;
+
+      const idAttr = btn.getAttribute('data-id');
       if (!idAttr) return;
+
       const id = parseInt(idAttr, 10);
-      if (target.classList.contains('add-btn')) {
+      if (Number.isNaN(id)) return;
+
+      if (btn.classList.contains('add-btn')) {
         addToCart(id);
-      }
-      if (target.classList.contains('remove-btn')) {
+      } else if (btn.classList.contains('remove-btn')) {
         removeOneFromCart(id);
       }
     });
+
+    servicesListListenerAttached = true;
   }
 
   function addToCart(serviceId) {
@@ -93,6 +110,7 @@ function initApp() {
       const service = services.find((s) => s.id === serviceId);
       if (service) cart.push({ ...service, qty: 1 });
     }
+    renderServices();
     renderCart();
   }
 
@@ -105,11 +123,13 @@ function initApp() {
         cart.splice(idx, 1);
       }
     }
+    renderServices();
     renderCart();
   }
 
   function clearCart() {
     cart = [];
+    renderServices();
     renderCart();
   }
 
